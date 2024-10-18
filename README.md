@@ -1,2 +1,15 @@
-# RNN
-What is RNN, Vanishing Gradient Problem, LSTM and build an RNN
+# The Vanishing Gradient Problem
+
+The vanishing gradient issue is a common issue that occurs during the training of deep neural networks such as RNN with many layers. Neural networks are trained using a technique called **backpropagation**, which involves calculating the error at the output layer and propagating it backward through the network to adjust the weights of the neurons in the earlier layers. The goal is to reduce the error by adjusting the weights iteratively, usually using an optimisation algorithm like **gradient descent**. In gradient descent, the 'gradient' refers to how much the loss function (which measures the network error) changes with respect to the weights. The gradients are used to update the weights. If the gradient is large, the weight is updated significantly and if the gradient is small, the update is also small. In deep networks, the gradients are computed using chain rule during backpropagation. This involves multiplying many small values (the derivatives of the activation functions in each layer) as we go backword through the layers. If these derivatives are small (for example, with activation functions such as tahn or sigmoid), their product becomes even smaller as they propagate backward. This results in the gradients becoming very small for the earlier layers in the network. When the gradients are very small, the 'vanish', meaning the weights in the earlier layers stop updating effectively. This slows down or even halts learning in those layers, making it difficult for the network to learn deep representations, and as a result, the network's performance suffers. 
+
+## Why does it matter?
+
+In deep networks, the earlier layers are responsible for capturing low-level features (like edges in image processing), while later layers capture more abstract or high-level features. If the early layers don't learn properly due to vanishing gradients, the whole network becomes less effective at learning complex patterns. 
+
+## How to solve the Vanishing Gradient Problem?
+1. Weight Initialization: Properly initializing the weights (for example, using methods like Xavier or He initialization) can help avoid the problem from the start.
+2. Echo State Networks: A type of recurrent neural network designed to avoid vanishing gradients by maintaining the information flow.
+3. Long Short-Term Memory Networks (LSTMs): LSTMs are a special kind of RNN that are explicitly designed to mitigate the vanishing gradient problem by using gates (input, forget, and output gates) to control the flow of information.
+4. ReLU Activation Function: One of the most popular solutions is to use the ReLU (Rectified Linear Unit) activation function, which has a derivative of 1 for positive values, avoiding the vanishing gradient problem for the most part.
+5. Batch Normalization: Helps stabilize the learning process by normalizing the inputs to each layer, reducing the chance of vanishing gradients.
+6. Residual Networks (ResNets): Introduce shortcut connections that skip layers, making it easier for the gradient to flow back through the network.
